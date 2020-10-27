@@ -3,7 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
+use App\User;
+use App\Role;
 class HomeController extends Controller
 {
     /**
@@ -21,9 +22,25 @@ class HomeController extends Controller
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
-    public function index()
+    public function admin()
     {
         return view('home');
+    }
+    public function addRole(Request $request)
+    {
+        $user = User::where('email',$request['email'])->first();
+        $user->roles()->detach();
+        if($request['Role_Admin']){
+       $user->roles()->attach(Role::where('name' , 'Admin')->first());
+        }
+        if($request['Role_Editeur']){
+            $user->roles()->attach(Role::where('name' , 'Editeur')->first());
+        }
+        if($request['Role_User']){
+            $user->roles()->attach(Role::where('name' , 'User')->first());
+        }
+             
+        return redirect()->back();
     }
 
 

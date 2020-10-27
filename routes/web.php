@@ -1,5 +1,6 @@
 <?php
 
+use GuzzleHttp\Middleware;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -21,18 +22,34 @@ Auth::routes();
 
 //Route::resource('produit', 'ProduitController');
 //Route::resource('user', 'UserController');
-Route::get('/home', 'HomeController@index')->name('home');
+//Route::get('/home', 'HomeController@index')->name('home');
 
 Route::get('/product', 'PageController@product')->name('product');
 Route::get('/productsList/{id}', 'PageController@products')->name('productsList');
 Route::delete('/produit/{id}/destroy', 'PageController@destroy')->name('produit.destroy');
 Route::delete('/produit/{id}/restore', 'PageController@restore')->name('produit.restore');
-Route::get('/users', 'PageController@users')->name('usersList');
+Route::get('/users', 'PageController@users')->name('users');
 Route::get('/access/{user}', 'PageController@access')->name('access');
 Route::get('/shopcart/{user}', 'PageController@shopcart')->name('shopcart');
 Route::get('/create', 'PageController@creatProduit')->name('create');
 Route::get('/store', 'PageController@storProduit')->name('store');
+
 Route::get('/trached', 'PageController@trached')->name('trached');
 
 
+
+Route::get('pages.usersList',[
+    'uses'=>  'HomeController@admin',
+    'as' => 'home',
+    'middleware' => 'roles',
+    'roles' => ['Admin']
+]);
+    
+Route::post('/add_role',[
+    'uses'=>  'HomeController@addRole',
+    'as' => 'pages.usersList',
+    'middleware' => 'roles',
+    'roles' => ['Admin']
+]);
+    
 

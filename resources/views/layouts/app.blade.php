@@ -62,7 +62,7 @@
                                 <a class="nav-link" href="{{ route('trached') }}">Archived product</a>
                             </li>
                             <li class="nav-item">
-                             {{--   <a class="nav-link" href="{{ route('users') }}">Liste des utilisateurs</a>--}}
+                             <a class="nav-link" href="{{ route('users') }}">Liste des utilisateurs</a>
                             </li>
                            
                            

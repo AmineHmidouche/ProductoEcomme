@@ -24,13 +24,24 @@
                 <tr>
                 <td>{{$user->name}}</td>
                     <td>{{$user->email}}</td>
-                    <td>{{$user->name}}</td>
+                    <td>  
+                          <form action="/add_role" method="post">
+                        <input type="hidden" name="email" value="{{ $user->email }}">
+                        @csrf
+                            <input onchange="this.form.submit()" name="Role_Admin" type="checkbox" {{$user->hasRole('Admin') ? 'checked' : ''}}>
+                            <input  onchange="this.form.submit()" name="Role_Editeur" type="checkbox" {{$user->hasRole('Editeur') ? 'checked' : ''}}>
+                            <input  onchange="this.form.submit()" name="Role_User" type="checkbox" {{$user->hasRole('User') ? 'checked' : ''}}>
+                   </form>
+                        </td>
+                       
+                    
                     <td>0</td>
                     <td>
-                        <a href="{{ route('user.show', $user->id) }}" class="btn btn-link">
+                       <a href="{{ route('access', $user->id) }}" class="btn btn-link">
                             Associer    
                         </a>
-                        <a href="{{ route('shopcart', 1) }}" class="btn btn-link">
+                       <a href="{{ route('shopcart', $user->id) }}" class="btn btn-link">
+                    
                             Gérer les paniers    
                         </a>
                     </td>
