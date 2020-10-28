@@ -16,7 +16,7 @@ class CheckRole
     public function handle($request, Closure $next)
     {
         if($request->user()== null){
-            return redirect('/home');
+            return redirect()->back();
         }
         $actions = $request->route()->getAction();
         $roles = isset($actions['roles']) ? $actions['roles'] : null;
@@ -24,6 +24,6 @@ class CheckRole
             return $next($request);
         }
         
-return redirect()->back();
+        return redirect('/denie-acess');
     }
 }

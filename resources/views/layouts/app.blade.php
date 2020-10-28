@@ -64,7 +64,16 @@
                             <li class="nav-item">
                              <a class="nav-link" href="{{ route('users') }}">Liste des utilisateurs</a>
                             </li>
-                           
+                            @if (Auth::check())
+                            @if (Auth::user()->hasRole('Admin'))
+                        
+                                
+                            
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('users') }}">Admin</a>
+                               </li>
+                        
+                               @endif @endif
                            
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>

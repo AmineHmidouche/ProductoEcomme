@@ -26,6 +26,10 @@ class HomeController extends Controller
     {
         return view('home');
     }
+    public function denieAcess()
+    {
+        return view('/denie-acess');
+    }
     public function addRole(Request $request)
     {
         $user = User::where('email',$request['email'])->first();
@@ -43,6 +47,10 @@ class HomeController extends Controller
         return redirect()->back();
     }
 
+public function index()
+    {
+        return view('home');
+    }
 
 
 }

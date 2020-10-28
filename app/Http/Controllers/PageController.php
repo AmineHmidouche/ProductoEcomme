@@ -99,7 +99,8 @@ class PageController extends Controller
     public function access($id )
     {
       //dd(\App\User::find($id));
-        return view('pages.accessManagement' ,['user'=> User::find($id)] );  
+
+        return view('pages.accessManagement' ,['user'=> User::find($id) , 'produits'=> Produit::all()] );  
     }
 
     /**
@@ -131,5 +132,12 @@ class PageController extends Controller
         
     }
 
-    
+    public function forcedelete($id) {
+        $produit = Produit::onlyTrashed()->where('id', $id)->first();
+
+      //  $this->authorize('forceDelete', $produit);
+
+        $produit->forceDelete();
+        return redirect()->back();
+    }
 }

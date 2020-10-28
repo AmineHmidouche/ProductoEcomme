@@ -90,7 +90,9 @@
                             @else
                                <h6>Not yet</h6>
                             @endif
-
+                            @if (Auth::check())
+                            @if (Auth::user()->hasRole('Admin'))
+                        
                             @if (!$produit->deleted_at)
                             <a href="javascript:;"   onclick="event.preventDefault(); if(confirm('Are you really want to delete?')){
      
@@ -121,7 +123,7 @@
                                     </svg>    
                                 </i>
                             </a>
-                            @endif
+                            @endif @endif @endif
                           
                         </div>
                     </td>

@@ -24,18 +24,59 @@
                 <tr>
                 <td>{{$user->name}}</td>
                     <td>{{$user->email}}</td>
-                    <td>  
-                          <form action="/add_role" method="post">
+                     
+                    <td>
+                        {{----- @if ($user->hasRole('Admin'))
+                        <h6>Admin</h6>
+                    
+                        
+                    @elseif($user->hasRole('Editeur'))
+                        <h6>Editeur</h6>
+                    @elseif($user->hasRole('User'))
+                        <h6>User</h6>
+                    @else
+                        No Role
+                    
+                        
+                    @endif ----}}
+                    @switch($user)
+                        @case($user->hasRole('Admin'))
+                        <h6 style="color: green">Admin</h6>
+                            @break
+                        @case($user->hasRole('Editeur'))
+                        <h6 style="color: green">Editeur</h6>
+                            @break
+                            @case($user->hasRole('User'))
+                            <h6 style="color: green">User</h6>
+                                @break
+                                @case($user->hasRole('Admin') && $user->hasRole('Editeur'))
+                             <h6>{{$user->hasRole('Admin') }}</h6>
+                                @break
+
+                                {{------------------- contraire ----------------------------}}
+                                @case(!$user->hasRole('Admin') && !$user->hasRole('Editeur') && !$user->hasRole('User') )
+                                <h6 style="color: red">No Role</h6>
+                                    @break
+                              
+                               
+                        @default
+                            
+                    @endswitch
+                  
+                          {{--<form action="/add_role" method="post">
                         <input type="hidden" name="email" value="{{ $user->email }}">
                         @csrf
-                            <input onchange="this.form.submit()" name="Role_Admin" type="checkbox" {{$user->hasRole('Admin') ? 'checked' : ''}}>
+                        
+                            <input  onchange="this.form.submit()" name="Role_Admin" type="checkbox" {{$user->hasRole('Admin') ? 'checked' : ''}}>
                             <input  onchange="this.form.submit()" name="Role_Editeur" type="checkbox" {{$user->hasRole('Editeur') ? 'checked' : ''}}>
                             <input  onchange="this.form.submit()" name="Role_User" type="checkbox" {{$user->hasRole('User') ? 'checked' : ''}}>
-                   </form>
+                  </form>--}}
                         </td>
                        
                     
-                    <td>0</td>
+                    <td>
+                        0
+                </td> 
                     <td>
                        <a href="{{ route('access', $user->id) }}" class="btn btn-link">
                             Associer    
